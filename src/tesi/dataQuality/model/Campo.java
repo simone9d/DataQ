@@ -129,13 +129,19 @@ public class Campo implements Comparable<Campo>{
 	}
 	
 	public boolean equals(Object o) {
-		Campo wrd0 =(Campo) o;
-		if(this.getCampo().equals(wrd0.getCampo())) {
-			return true;
+		if(this.getClass() == o.getClass()) {
+			Campo wrd0 = (Campo) o;
+			if(this.getCampo().equals(wrd0.getCampo())) {
+				return true;
+			}
+			else {
+				return false;
+			}	
 		}
 		else {
 			return false;
 		}
+		
         
       }
 	

@@ -35,13 +35,19 @@ public class Parola implements Comparable<Parola> {
 	}
 	
 	public boolean equals(Object o) {
-		Parola wrd0 =(Parola) o;
-		if(this.getWord().equals(wrd0.getWord())) {
-			return true;
+		if(this.getClass() == o.getClass()) {
+			Parola wrd0 = (Parola) o;
+			if(this.getWord().equals(wrd0.getWord())) {
+				return true;
+			}
+			else {
+				return false;
+			}	
 		}
 		else {
 			return false;
 		}
+		
         
       }
 
