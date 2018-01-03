@@ -1,11 +1,11 @@
 package tesi.dataQuality.DAO;
 
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.sql.Statement;
+import com.mysql.jdbc.jdbc2.optional.MysqlDataSource;
 
 /**
  * Classe per l'accesso al database
@@ -15,18 +15,6 @@ import java.sql.Statement;
 public class MySqlDao {
 	private static MySqlDao dao=new MySqlDao();
 
-	
-	
-	private static Connection conn = null;
-	
-	public static boolean connected() {
-		if(conn!=null) {
-			return true;
-		}
-		else {
-			return false;
-		}
-	}
 
 	private MySqlDao() {
 	}
@@ -36,74 +24,99 @@ public class MySqlDao {
 	}
 	
 	public static ResultSet getSentences() {
-		
+		MysqlDataSource d = new MysqlDataSource();
+	    d.setUser(Configurator.getUser());
+	    d.setPassword(Configurator.getPw());
+	    d.setUrl("jdbc:mysql://localhost:3306");
+	    d.setDatabaseName(Configurator.getDb());
+	    Statement stmt;
+	    ResultSet rs = null;
 		try {
-			chiudiConnessione();
-			Statement stmt = MySqlDao.connetti().createStatement();
+			Connection conn = (Connection)d.getConnection();
+			stmt = conn.createStatement();
 			stmt.executeQuery("Use "+Configurator.getDb()+";");
-			ResultSet rs=stmt.executeQuery("Select * from " + Configurator.getTable() + ";");
+			rs=stmt.executeQuery("Select * from " + Configurator.getTable() + ";");
 			return rs;
 		} catch (SQLException e) {
 			System.out.println("SQL Error");
 		}
-		return null;
+		return rs;
 		
 	}
 	
 	public static ResultSet getDatabases() {
+		MysqlDataSource d = new MysqlDataSource();
+	    d.setUser(Configurator.getUser());
+	    d.setPassword(Configurator.getPw());
+	    d.setUrl("jdbc:mysql://localhost:3306");
+	    d.setDatabaseName(Configurator.getDb());
+	    Statement stmt;
+	    ResultSet rs = null;
+	    try {
+			Connection conn =  (Connection) d.getConnection();
+			stmt = conn.createStatement();
+			rs = stmt.executeQuery("show databases;");
+		} catch (SQLException e) {}
+	    return rs;
+	}
+	
+	public static ResultSet getTable() {
+		MysqlDataSource d = new MysqlDataSource();
+	    d.setUser(Configurator.getUser());
+	    d.setPassword(Configurator.getPw());
+	    d.setUrl("jdbc:mysql://localhost:3306");
+	    d.setDatabaseName(Configurator.getDb());
+	    Statement stmt;
+	    ResultSet rs = null;
 		try {
-			chiudiConnessione();
-			Statement stmt = MySqlDao.connetti().createStatement();
-			//stmt.executeQuery("Use "+db+";");
-			ResultSet rs=stmt.executeQuery("show databases;");
+			Connection conn =  (Connection) d.getConnection();
+			stmt = conn.createStatement();
+			stmt.executeQuery("Use "+Configurator.getDb()+";");
+			rs = stmt.executeQuery("show tables;");
 			return rs;
 		} catch (SQLException e) {
 			System.out.println("SQL Error");
 		}
-		return null;
-		
-	}
-	
-	public static ResultSet getTable() {
-		
-		try {
-			chiudiConnessione();
-			Statement stmt = MySqlDao.connetti().createStatement();
-			stmt.executeQuery("Use "+Configurator.getDb()+";");
-			return stmt.executeQuery("show tables;");
-		} catch (SQLException e) {
-			System.out.println("SQL Error");
-		}
-		return null;
+		return rs;
 		
 	}
 	
 	public static ResultSetMetaData getColumn() {
-		
+		MysqlDataSource d = new MysqlDataSource();
+	    d.setUser(Configurator.getUser());
+	    d.setPassword(Configurator.getPw());
+	    d.setUrl("jdbc:mysql://localhost:3306");
+	    d.setDatabaseName(Configurator.getDb());
+	    Statement stmt;
+	    ResultSet rs = null;
+	    ResultSetMetaData rsmd = null;
 		try {
-			chiudiConnessione();
-			ResultSetMetaData rsmd = null;
-			Statement stmt = MySqlDao.connetti().createStatement();
+			Connection conn =  (Connection) d.getConnection();
+			stmt = conn.createStatement();
 			stmt.executeQuery("Use "+Configurator.getDb()+";");
-			ResultSet rs;
 			rs = stmt.executeQuery("select * from "+Configurator.getTable()+ ";");
 			rsmd = rs.getMetaData();
 			return rsmd;
 		} catch (SQLException e) {
 			System.out.println("SQL Error");
 		}
-		return null;
+		return rsmd;
 		
 	}
 	
 	public static String getPKcol() {
-		
+		MysqlDataSource d = new MysqlDataSource();
+	    d.setUser(Configurator.getUser());
+	    d.setPassword(Configurator.getPw());
+	    d.setUrl("jdbc:mysql://localhost:3306");
+	    d.setDatabaseName(Configurator.getDb());
+	    Statement stmt;
+	    ResultSet rs = null;
+	    ResultSetMetaData rsmd = null;
 		try {
-			chiudiConnessione();
-			ResultSetMetaData rsmd = null;
-			Statement stmt = MySqlDao.connetti().createStatement();
+			Connection conn =  (Connection) d.getConnection();
+			stmt = conn.createStatement();
 			stmt.executeQuery("Use "+Configurator.getDb()+";");
-			ResultSet rs;
 			rs = stmt.executeQuery("select * from "+Configurator.getTable()+ ";");
 			rsmd = rs.getMetaData();
 			return rsmd.getColumnLabel(1);
@@ -113,29 +126,5 @@ public class MySqlDao {
 		return null;
 		
 	}
-
-	private static Connection connetti(){
-		try {
-			getIstance();
-			conn=DriverManager.getConnection(Configurator.getConnessione(), Configurator.getUser(), Configurator.getPw());
-			return conn;
-		} catch (SQLException e) {
-			System.out.println("SQL Error");
-		}
-		return conn;
-		
-	}
-
-	private static void chiudiConnessione() {
-		try {
-			if(conn!=null){
-				if(!conn.isClosed()){
-					conn.close();
-				}
-			}
-		} catch (SQLException e) {
-			System.out.println("SQL Error");
-		}
 	
-	}
 }

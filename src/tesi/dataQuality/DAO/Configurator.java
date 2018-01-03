@@ -5,7 +5,7 @@ public class Configurator {
 	private static String db="";
 	private static String us="";
 	private static String table=""; 
-	private static String connessione="jdbc:mysql://localhost:3306/world?useSSL=true";
+	private final static String connessione="jdbc:mysql://localhost:3306/world?useSSL=true";
 									//jdbc:mysql://localhost:3306/Peoples?verifyServerCertificate=false&useSSL=true
 									//jdbc:mysql://localhost:3306
 	private static String pw="";
@@ -30,9 +30,6 @@ public class Configurator {
 	}
 	public static String getConnessione() {
 		return connessione;
-	}
-	public static void setConnessione(String connessione) {
-		Configurator.connessione = connessione;
 	}
 	public static String getPw() {
 		return pw;

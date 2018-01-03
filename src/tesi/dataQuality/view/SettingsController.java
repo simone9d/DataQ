@@ -102,7 +102,7 @@ public class SettingsController {
 		
 		ResultSet rs=MySqlDao.getDatabases();
 		
-		if(MySqlDao.connected()) {
+		if(rs!=null) {
 			try {
 				while(rs.next()) {
 					MenuItem item = new MenuItem(rs.getString(1));
