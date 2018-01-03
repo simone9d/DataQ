@@ -128,4 +128,15 @@ public class Campo implements Comparable<Campo>{
 		return this.getCampo().compareTo(field.getCampo());
 	}
 	
+	public boolean equals(Object o) {
+		Campo wrd0 =(Campo) o;
+		if(this.getCampo().equals(wrd0.getCampo())) {
+			return true;
+		}
+		else {
+			return false;
+		}
+        
+      }
+	
 }
