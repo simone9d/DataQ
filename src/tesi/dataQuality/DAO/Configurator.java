@@ -1,5 +1,11 @@
 package tesi.dataQuality.DAO;
 
+/**
+ * Classe che contiene le informazioni
+ * necessarie per la connesione al db
+ * @author PC-Simone
+ *
+ */
 public class Configurator {
 
 	private static String db="";
