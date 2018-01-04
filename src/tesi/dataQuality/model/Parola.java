@@ -33,22 +33,5 @@ public class Parola implements Comparable<Parola> {
 	public int compareTo(Parola o) {
 		return this.getWord().compareTo(o.getWord());
 	}
-	
-	public boolean equals(Object o) {
-		if(this.getClass() == o.getClass()) {
-			Parola wrd0 = (Parola) o;
-			if(this.getWord().equals(wrd0.getWord())) {
-				return true;
-			}
-			else {
-				return false;
-			}	
-		}
-		else {
-			return false;
-		}
-		
-        
-      }
 
 }

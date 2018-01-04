@@ -17,9 +17,8 @@ import javafx.scene.shape.Line;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import tesi.dataQuality.MainApp;
-import tesi.dataQuality.DAO.MYSqlLogin;
+import tesi.dataQuality.DAO.Configurator;
 import tesi.dataQuality.DAO.MySqlDao;
-import tesi.dataQuality.DAO.MySqlSets;
 import tesi.dataQuality.analyzer.AnalyzerController;
 import tesi.dataQuality.model.Column;
 
@@ -98,8 +97,8 @@ public class SettingsController {
 	@FXML
 	private void insPW() {
 		slctDB.getItems().clear();
-		MYSqlLogin.setPw(PWMask.getText());
-		MYSqlLogin.setUser(userName.getText());
+		Configurator.setPw(PWMask.getText());
+		Configurator.setUser(userName.getText());
 		
 		ResultSet rs=MySqlDao.getDatabases();
 		
@@ -111,7 +110,7 @@ public class SettingsController {
 					    @Override
 					    public void handle(ActionEvent event) {
 					    	slctDB.setText(item.getText());
-					    	MySqlSets.setDb(item.getText());
+					    	Configurator.setDb(item.getText());
 					    	showTables();
 					    }
 					});
@@ -139,7 +138,7 @@ public class SettingsController {
 		}
 					
 	}
-
+	
 	private void showTables() {
 		int rowIndex=0;
 		grid.getChildren().clear();
@@ -169,7 +168,7 @@ public class SettingsController {
 			        Toggle old_toggle, Toggle new_toggle) {
 			            if (group.getSelectedToggle() != null) {
 			            	RadioButton selectedRadioButton =(RadioButton) group.getSelectedToggle();
-			            	MySqlSets.setTable(selectedRadioButton.getText());
+			            	Configurator.setTable(selectedRadioButton.getText());
 			            	setter();
 			            }                
 			        }
