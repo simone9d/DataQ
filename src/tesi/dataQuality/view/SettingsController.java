@@ -106,40 +106,55 @@ public class SettingsController {
 		if(rs!=null) {
 			try {
 				while(rs.next()) {
-					MenuItem item = new MenuItem(rs.getString(1));
-					item.setOnAction(new EventHandler<ActionEvent>() {
-					    @Override
-					    public void handle(ActionEvent event) {
-					    	slctDB.setText(item.getText());
-					    	MySqlSets.setDb(item.getText());
-					    	showTables();
-					    }
-					});
-					slctDB.getItems().add(item);
+					btCreator(rs.getString(1));
 				}
 			} catch (SQLException e) {
 				System.out.println("SQL Error");
 			}
 			
-			PW.setDisable(true);
-			PWMask.setDisable(true);
-			dbLine1.setVisible(true);
-			dbLine2.setVisible(true);
-			slctDB.setVisible(true);
-			slctDB.setDisable(false);
-			lblDB.setVisible(true);
+			shower();
 			
 		}
 		else {
-			Alert alert = new Alert(AlertType.INFORMATION);
-	        alert.setTitle("Login failed");
-	        alert.setHeaderText("Info");
-	        alert.setContentText("Wrong Password!\nPlease, insert PW again.");
-	        alert.showAndWait();
+			alerter();
 		}
 					
 	}
 	
+	private void btCreator(String str) {
+		MenuItem item = new MenuItem(str);
+		item.setOnAction(new EventHandler<ActionEvent>() {
+		    @Override
+		    public void handle(ActionEvent event) {
+		    	slctDB.setText(item.getText());
+		    	MySqlSets.setDb(item.getText());
+		    	showTables();
+		    }
+		});
+		slctDB.getItems().add(item);
+		
+	}
+
+	private void shower() {
+		PW.setDisable(true);
+		PWMask.setDisable(true);
+		dbLine1.setVisible(true);
+		dbLine2.setVisible(true);
+		slctDB.setVisible(true);
+		slctDB.setDisable(false);
+		lblDB.setVisible(true);
+		
+	}
+
+	private void alerter() {
+		Alert alert = new Alert(AlertType.INFORMATION);
+        alert.setTitle("Login failed");
+        alert.setHeaderText("Info");
+        alert.setContentText("Wrong Password!\nPlease, insert PW again.");
+        alert.showAndWait();
+		
+	}
+
 	private void showTables() {
 		int rowIndex=0;
 		grid.getChildren().clear();
