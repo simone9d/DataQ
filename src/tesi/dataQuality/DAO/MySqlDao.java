@@ -25,17 +25,17 @@ public class MySqlDao {
 	
 	public static ResultSet getSentences() {
 		MysqlDataSource d = new MysqlDataSource();
-	    d.setUser(Configurator.getUser());
-	    d.setPassword(Configurator.getPw());
+	    d.setUser(MYSqlLogin.getUser());
+	    d.setPassword(MYSqlLogin.getPw());
 	    d.setUrl("jdbc:mysql://localhost:3306");
-	    d.setDatabaseName(Configurator.getDb());
+	    d.setDatabaseName(MySqlSets.getDb());
 	    Statement stmt;
 	    ResultSet rs = null;
 		try {
 			Connection conn = (Connection)d.getConnection();
 			stmt = conn.createStatement();
-			stmt.executeQuery("Use "+Configurator.getDb()+";");
-			rs=stmt.executeQuery("Select * from " + Configurator.getTable() + ";");
+			stmt.executeQuery("Use "+MySqlSets.getDb()+";");
+			rs=stmt.executeQuery("Select * from " + MySqlSets.getTable() + ";");
 			return rs;
 		} catch (SQLException e) {
 			System.out.println("SQL Error");
@@ -46,10 +46,10 @@ public class MySqlDao {
 	
 	public static ResultSet getDatabases() {
 		MysqlDataSource d = new MysqlDataSource();
-	    d.setUser(Configurator.getUser());
-	    d.setPassword(Configurator.getPw());
+	    d.setUser(MYSqlLogin.getUser());
+	    d.setPassword(MYSqlLogin.getPw());
 	    d.setUrl("jdbc:mysql://localhost:3306");
-	    d.setDatabaseName(Configurator.getDb());
+	    d.setDatabaseName(MySqlSets.getDb());
 	    Statement stmt;
 	    ResultSet rs = null;
 	    try {
@@ -62,16 +62,16 @@ public class MySqlDao {
 	
 	public static ResultSet getTable() {
 		MysqlDataSource d = new MysqlDataSource();
-	    d.setUser(Configurator.getUser());
-	    d.setPassword(Configurator.getPw());
+	    d.setUser(MYSqlLogin.getUser());
+	    d.setPassword(MYSqlLogin.getPw());
 	    d.setUrl("jdbc:mysql://localhost:3306");
-	    d.setDatabaseName(Configurator.getDb());
+	    d.setDatabaseName(MySqlSets.getDb());
 	    Statement stmt;
 	    ResultSet rs = null;
 		try {
 			Connection conn =  (Connection) d.getConnection();
 			stmt = conn.createStatement();
-			stmt.executeQuery("Use "+Configurator.getDb()+";");
+			stmt.executeQuery("Use "+MySqlSets.getDb()+";");
 			rs = stmt.executeQuery("show tables;");
 			return rs;
 		} catch (SQLException e) {
@@ -83,18 +83,18 @@ public class MySqlDao {
 	
 	public static ResultSetMetaData getColumn() {
 		MysqlDataSource d = new MysqlDataSource();
-	    d.setUser(Configurator.getUser());
-	    d.setPassword(Configurator.getPw());
+	    d.setUser(MYSqlLogin.getUser());
+	    d.setPassword(MYSqlLogin.getPw());
 	    d.setUrl("jdbc:mysql://localhost:3306");
-	    d.setDatabaseName(Configurator.getDb());
+	    d.setDatabaseName(MySqlSets.getDb());
 	    Statement stmt;
 	    ResultSet rs = null;
 	    ResultSetMetaData rsmd = null;
 		try {
 			Connection conn =  (Connection) d.getConnection();
 			stmt = conn.createStatement();
-			stmt.executeQuery("Use "+Configurator.getDb()+";");
-			rs = stmt.executeQuery("select * from "+Configurator.getTable()+ ";");
+			stmt.executeQuery("Use "+MySqlSets.getDb()+";");
+			rs = stmt.executeQuery("select * from "+MySqlSets.getTable()+ ";");
 			rsmd = rs.getMetaData();
 			return rsmd;
 		} catch (SQLException e) {
@@ -106,18 +106,18 @@ public class MySqlDao {
 	
 	public static String getPKcol() {
 		MysqlDataSource d = new MysqlDataSource();
-	    d.setUser(Configurator.getUser());
-	    d.setPassword(Configurator.getPw());
+	    d.setUser(MYSqlLogin.getUser());
+	    d.setPassword(MYSqlLogin.getPw());
 	    d.setUrl("jdbc:mysql://localhost:3306");
-	    d.setDatabaseName(Configurator.getDb());
+	    d.setDatabaseName(MySqlSets.getDb());
 	    Statement stmt;
 	    ResultSet rs = null;
 	    ResultSetMetaData rsmd = null;
 		try {
 			Connection conn =  (Connection) d.getConnection();
 			stmt = conn.createStatement();
-			stmt.executeQuery("Use "+Configurator.getDb()+";");
-			rs = stmt.executeQuery("select * from "+Configurator.getTable()+ ";");
+			stmt.executeQuery("Use "+MySqlSets.getDb()+";");
+			rs = stmt.executeQuery("select * from "+MySqlSets.getTable()+ ";");
 			rsmd = rs.getMetaData();
 			return rsmd.getColumnLabel(1);
 		} catch (SQLException e) {
