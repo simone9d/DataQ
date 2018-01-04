@@ -13,8 +13,22 @@ import com.mysql.jdbc.jdbc2.optional.MysqlDataSource;
  *
  */
 public class MySqlDao {
-	private static MySqlDao dao=new MySqlDao();
+	private final static MySqlDao dao=new MySqlDao();
 
+	private static String db="";
+	private static String table="";
+
+	public static String getDb() {
+		return db;
+	}
+
+	public static void setDb(String db) {
+		MySqlDao.db = db;
+	}
+
+	public static void setTable(String table) {
+		MySqlDao.table = table;
+	}
 
 	private MySqlDao() {
 	}
@@ -28,14 +42,14 @@ public class MySqlDao {
 	    d.setUser(Configurator.getUser());
 	    d.setPassword(Configurator.getPw());
 	    d.setUrl("jdbc:mysql://localhost:3306");
-	    d.setDatabaseName(Configurator.getDb());
+	    d.setDatabaseName(db);
 	    Statement stmt;
 	    ResultSet rs = null;
 		try {
 			Connection conn = (Connection)d.getConnection();
 			stmt = conn.createStatement();
-			stmt.executeQuery("Use "+Configurator.getDb()+";");
-			rs=stmt.executeQuery("Select * from " + Configurator.getTable() + ";");
+			stmt.executeQuery("Use "+db+";");
+			rs=stmt.executeQuery("Select * from " + table + ";");
 			return rs;
 		} catch (SQLException e) {
 			System.out.println("SQL Error");
@@ -49,7 +63,7 @@ public class MySqlDao {
 	    d.setUser(Configurator.getUser());
 	    d.setPassword(Configurator.getPw());
 	    d.setUrl("jdbc:mysql://localhost:3306");
-	    d.setDatabaseName(Configurator.getDb());
+	    d.setDatabaseName(db);
 	    Statement stmt;
 	    ResultSet rs = null;
 	    try {
@@ -65,13 +79,13 @@ public class MySqlDao {
 	    d.setUser(Configurator.getUser());
 	    d.setPassword(Configurator.getPw());
 	    d.setUrl("jdbc:mysql://localhost:3306");
-	    d.setDatabaseName(Configurator.getDb());
+	    d.setDatabaseName(db);
 	    Statement stmt;
 	    ResultSet rs = null;
 		try {
 			Connection conn =  (Connection) d.getConnection();
 			stmt = conn.createStatement();
-			stmt.executeQuery("Use "+Configurator.getDb()+";");
+			stmt.executeQuery("Use "+db+";");
 			rs = stmt.executeQuery("show tables;");
 			return rs;
 		} catch (SQLException e) {
@@ -86,15 +100,15 @@ public class MySqlDao {
 	    d.setUser(Configurator.getUser());
 	    d.setPassword(Configurator.getPw());
 	    d.setUrl("jdbc:mysql://localhost:3306");
-	    d.setDatabaseName(Configurator.getDb());
+	    d.setDatabaseName(db);
 	    Statement stmt;
 	    ResultSet rs = null;
 	    ResultSetMetaData rsmd = null;
 		try {
 			Connection conn =  (Connection) d.getConnection();
 			stmt = conn.createStatement();
-			stmt.executeQuery("Use "+Configurator.getDb()+";");
-			rs = stmt.executeQuery("select * from "+Configurator.getTable()+ ";");
+			stmt.executeQuery("Use "+db+";");
+			rs = stmt.executeQuery("select * from "+table+ ";");
 			rsmd = rs.getMetaData();
 			return rsmd;
 		} catch (SQLException e) {
@@ -109,15 +123,15 @@ public class MySqlDao {
 	    d.setUser(Configurator.getUser());
 	    d.setPassword(Configurator.getPw());
 	    d.setUrl("jdbc:mysql://localhost:3306");
-	    d.setDatabaseName(Configurator.getDb());
+	    d.setDatabaseName(db);
 	    Statement stmt;
 	    ResultSet rs = null;
 	    ResultSetMetaData rsmd = null;
 		try {
 			Connection conn =  (Connection) d.getConnection();
 			stmt = conn.createStatement();
-			stmt.executeQuery("Use "+Configurator.getDb()+";");
-			rs = stmt.executeQuery("select * from "+Configurator.getTable()+ ";");
+			stmt.executeQuery("Use "+db+";");
+			rs = stmt.executeQuery("select * from "+table+ ";");
 			rsmd = rs.getMetaData();
 			return rsmd.getColumnLabel(1);
 		} catch (SQLException e) {

@@ -110,7 +110,7 @@ public class SettingsController {
 					    @Override
 					    public void handle(ActionEvent event) {
 					    	slctDB.setText(item.getText());
-					    	Configurator.setDb(item.getText());
+					    	MySqlDao.setDb(item.getText());
 					    	showTables();
 					    }
 					});
@@ -168,7 +168,7 @@ public class SettingsController {
 			        Toggle old_toggle, Toggle new_toggle) {
 			            if (group.getSelectedToggle() != null) {
 			            	RadioButton selectedRadioButton =(RadioButton) group.getSelectedToggle();
-			            	Configurator.setTable(selectedRadioButton.getText());
+			            	MySqlDao.setTable(selectedRadioButton.getText());
 			            	setter();
 			            }                
 			        }
